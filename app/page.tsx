@@ -1,7 +1,21 @@
 import Image from "next/image";
+import { headers } from "next/headers";
 import { BlogList } from "@/src/components/blog-list";
 
-export default function Home() {
+async function getHelloMessage() {
+  const headerList = await headers();
+  const host = headerList.get("host") ?? "localhost:3000";
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const response = await fetch(`${protocol}://${host}/api/hello`, {
+    cache: "no-store",
+  });
+  const data = (await response.json()) as { message: string };
+  return data.message;
+}
+
+export default async function Home() {
+  const hello = await getHelloMessage();
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-white font-sans dark:bg-black">
       <main className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col items-start gap-10 px-16 py-20">
@@ -13,6 +27,9 @@ export default function Home() {
           height={20}
           priority
         />
+        <p className="text-2xl font-semibold tracking-tight text-black dark:text-zinc-50">
+          {hello}
+        </p>
         <div className="flex w-full flex-col items-start gap-6 text-left">
           <h1 className="max-w-5xl text-5xl font-semibold leading-tight tracking-tight text-black dark:text-zinc-50">
             To get started, edit the{" "}

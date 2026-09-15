@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, posts } from "../posts";
@@ -45,6 +46,14 @@ export default async function BlogPostPage({
         <h1 className="max-w-4xl text-5xl font-semibold leading-tight tracking-tight text-black dark:text-zinc-50">
           {post.title}
         </h1>
+        <Image
+          src={post.coverImage}
+          alt={post.coverAlt}
+          width={1200}
+          height={630}
+          className="w-full max-w-4xl rounded-xl object-cover"
+          priority
+        />
         <div className="flex max-w-3xl flex-col gap-6">
           {post.body.map((paragraph) => (
             <p
