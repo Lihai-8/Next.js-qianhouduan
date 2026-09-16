@@ -37,6 +37,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               首页
             </Link>
             <Link
+              href="/blog"
+              className="text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+            >
+              博客
+            </Link>
+            <Link
               href="/about"
               className="text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
             >
